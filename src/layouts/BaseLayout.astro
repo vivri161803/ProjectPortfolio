@@ -1,0 +1,77 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "Carlo Bianchi — AI Engineer & Researcher",
+  description = "AI Engineer & Researcher specializing in Knowledge Graphs, LLMs, and efficient AI architectures. Data Science Master's Student at University of Florence."
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site || "https://carlobianchi.dev");
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- SEO -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL.toString()} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalURL.toString()} />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Fonts: Instrument Serif (Display), JetBrains Mono (Body), Syne (Accent) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@300;400;500;700&family=Syne:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Structured Data: Person -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Carlo Bianchi",
+      "jobTitle": "AI Engineer & Researcher",
+      "description": description,
+      "url": canonicalURL.toString(),
+      "sameAs": [
+        "https://github.com/carlobianchi",
+        "https://linkedin.com/in/carlobianchi"
+      ],
+      "alumniOf": {
+        "@type": "CollegeOrUniversity",
+        "name": "University of Florence"
+      },
+      "knowsAbout": ["Artificial Intelligence", "Machine Learning", "Knowledge Graphs", "Natural Language Processing", "Python", "PyTorch"]
+    })} />
+
+    <!-- Global Styles -->
+    <style is:global>
+      @import "../styles/global.css";
+    </style>
+  </head>
+  <body class="noise-overlay">
+    <slot />
+  </body>
+</html>

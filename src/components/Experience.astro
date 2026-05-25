@@ -1,0 +1,196 @@
+---
+import { experiences } from "../config";
+---
+
+<section id="experience" data-section="experience" class="section section--overlay">
+  <div class="experience-container">
+    <!-- Section header -->
+    <div class="experience-header animate-reveal">
+      <span class="section-label">
+        <span class="section-label__index">03</span>
+        Experience
+      </span>
+      <h2 class="experience-title">Where I've<br /><em>Been</em></h2>
+    </div>
+
+    <!-- Timeline -->
+    <div class="timeline">
+      {experiences.map((exp, i) => (
+        <div
+          id={exp.id}
+          class={`timeline-entry animate-reveal stagger-${i + 2}`}
+        >
+          <!-- Timeline marker -->
+          <div class="timeline-marker">
+            <div class="timeline-marker__dot" aria-hidden="true">
+              {exp.current && <span class="timeline-marker__pulse"></span>}
+            </div>
+            <div class="timeline-marker__line" aria-hidden="true"></div>
+          </div>
+
+          <!-- Content -->
+          <div class="timeline-content">
+            <span class="timeline-period">{exp.period}</span>
+            <h3 class="timeline-role">{exp.role}</h3>
+            <span class="timeline-company">
+              {exp.company}
+              {exp.current && <span class="timeline-current">NOW</span>}
+            </span>
+            <p class="timeline-desc">{exp.description}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .experience-container {
+    max-width: 900px;
+    width: 100%;
+  }
+
+  .experience-header {
+    margin-bottom: 4rem;
+  }
+
+  .section-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    margin-bottom: 1rem;
+  }
+
+  .section-label__index {
+    color: var(--color-accent-primary);
+    font-weight: 700;
+  }
+
+  .experience-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    line-height: 0.95;
+    color: var(--color-text-primary);
+  }
+
+  .experience-title em {
+    font-style: italic;
+    color: var(--color-accent-primary);
+  }
+
+  /* Timeline layout */
+  .timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .timeline-entry {
+    display: grid;
+    grid-template-columns: 60px 1fr;
+    gap: 2rem;
+    min-height: 180px;
+  }
+
+  /* Marker column */
+  .timeline-marker {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+  }
+
+  .timeline-marker__dot {
+    width: 12px;
+    height: 12px;
+    border: 2px solid var(--color-accent-primary);
+    background: var(--color-bg-primary);
+    position: relative;
+    flex-shrink: 0;
+    margin-top: 0.5rem;
+  }
+
+  .timeline-marker__pulse {
+    position: absolute;
+    inset: -4px;
+    border: 1px solid var(--color-accent-primary);
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+
+  .timeline-marker__line {
+    width: 1px;
+    flex: 1;
+    background: var(--color-border-hard);
+    margin-top: 0.5rem;
+  }
+
+  .timeline-entry:last-child .timeline-marker__line {
+    background: linear-gradient(
+      180deg,
+      var(--color-border-hard) 0%,
+      transparent 100%
+    );
+  }
+
+  /* Content */
+  .timeline-content {
+    padding-bottom: 3rem;
+  }
+
+  .timeline-period {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+  }
+
+  .timeline-role {
+    font-family: var(--font-accent);
+    font-size: clamp(1.25rem, 2.5vw, 2rem);
+    font-weight: 800;
+    color: var(--color-text-primary);
+    line-height: 1.1;
+    margin: 0.5rem 0 0.25rem;
+  }
+
+  .timeline-company {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--color-text-secondary);
+    margin-bottom: 0.75rem;
+  }
+
+  .timeline-current {
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    color: var(--color-accent-primary);
+    padding: 0.15rem 0.4rem;
+    border: 1px solid var(--color-accent-primary);
+    line-height: 1;
+  }
+
+  .timeline-desc {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    line-height: 1.7;
+    color: var(--color-text-secondary);
+    max-width: 540px;
+  }
+
+  @media (max-width: 640px) {
+    .timeline-entry {
+      grid-template-columns: 40px 1fr;
+      gap: 1rem;
+    }
+  }
+</style>

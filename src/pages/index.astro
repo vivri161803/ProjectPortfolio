@@ -1,0 +1,100 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Hero from "../components/Hero.astro";
+import Projects from "../components/Projects.astro";
+import Experience from "../components/Experience.astro";
+import Contacts from "../components/Contacts.astro";
+import KnowledgeGraph from "../components/react/KnowledgeGraph.jsx";
+---
+
+<BaseLayout>
+  <!-- 3D Background — React Island, client:only to avoid SSR -->
+  <KnowledgeGraph client:only="react" />
+
+  <!-- HTML Content Overlay -->
+  <main>
+    <Hero />
+    <Projects />
+    <Experience />
+    <Contacts />
+  </main>
+</BaseLayout>
+
+<!-- GSAP ScrollTrigger — Section change dispatcher -->
+<script>
+  import gsap from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Wait for DOM ready
+  document.addEventListener("DOMContentLoaded", () => {
+    const sections = document.querySelectorAll("[data-section]");
+
+    sections.forEach((section) => {
+      const sectionId = section.getAttribute("data-section");
+
+      ScrollTrigger.create({
+        trigger: section,
+        start: "top center",
+        end: "bottom center",
+        onEnter: () => {
+          window.dispatchEvent(
+            new CustomEvent("section-change", {
+              detail: { sectionId },
+            })
+          );
+        },
+        onEnterBack: () => {
+          window.dispatchEvent(
+            new CustomEvent("section-change", {
+              detail: { sectionId },
+            })
+          );
+        },
+      });
+    });
+
+    // Scroll-triggered reveal animations
+    const reveals = document.querySelectorAll(".animate-reveal, .animate-reveal-left");
+    reveals.forEach((el) => {
+      // Reset initial state
+      el.style.opacity = "0";
+
+      ScrollTrigger.create({
+        trigger: el,
+        start: "top 85%",
+        once: true,
+        onEnter: () => {
+          el.style.opacity = "";
+          el.classList.add("is-visible");
+        },
+      });
+    });
+  });
+</script>
+
+<style is:global>
+  /* Reveal elements start hidden, then animate in when triggered */
+  .animate-reveal,
+  .animate-reveal-left {
+    opacity: 0;
+  }
+
+  .animate-reveal.is-visible {
+    animation: reveal-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  .animate-reveal-left.is-visible {
+    animation: reveal-left 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  /* Hero section: always visible (above fold) */
+  #hero .animate-reveal {
+    opacity: 1;
+  }
+
+  #hero .animate-reveal.is-visible {
+    animation: reveal-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+</style>

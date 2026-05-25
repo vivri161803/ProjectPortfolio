@@ -1,0 +1,211 @@
+---
+import { projects, projectCategoryColors } from "../config";
+---
+
+<section id="projects" data-section="projects" class="section section--overlay">
+  <div class="projects-container">
+    <!-- Section header -->
+    <div class="projects-header animate-reveal">
+      <span class="section-label">
+        <span class="section-label__index">02</span>
+        Projects & Research
+      </span>
+      <h2 class="projects-title">Selected<br /><em>Work</em></h2>
+    </div>
+
+    <!-- Project grid — asymmetric -->
+    <div class="projects-grid">
+      {projects.map((project, i) => {
+        const accentColor = projectCategoryColors[project.category] || "#B24BF3";
+        return (
+          <a
+            href={project.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            id={`project-${project.id}`}
+            class={`project-card project-card--${project.category} animate-reveal stagger-${i + 2}`}
+            aria-label={`View ${project.title} on GitHub`}
+            style={`--project-accent: ${accentColor};`}
+          >
+            <div class="project-card__header">
+              <span class="project-card__category">{project.category}</span>
+              <svg class="project-card__arrow" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                <path d="M5 15L15 5M15 5H7M15 5V13" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"/>
+              </svg>
+            </div>
+
+            <h3 class="project-card__title">{project.title}</h3>
+            <p class="project-card__desc">{project.description}</p>
+
+            <div class="project-card__tech">
+              {project.tech.map((t) => (
+                <span class="tech-tag">{t}</span>
+              ))}
+            </div>
+          </a>
+        );
+      })}
+    </div>
+  </div>
+</section>
+
+<style>
+  .projects-container {
+    max-width: 1200px;
+    width: 100%;
+  }
+
+  .projects-header {
+    margin-bottom: 4rem;
+  }
+
+  .section-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    margin-bottom: 1rem;
+  }
+
+  .section-label__index {
+    color: var(--color-accent-primary);
+    font-weight: 700;
+  }
+
+  .projects-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    line-height: 0.95;
+    color: var(--color-text-primary);
+  }
+
+  .projects-title em {
+    font-style: italic;
+    color: var(--color-accent-primary);
+  }
+
+  /* Asymmetric grid: first card spans full, rest are half */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+
+  .projects-grid > :first-child {
+    grid-column: 1 / -1;
+  }
+
+  .project-card {
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border-hard);
+    text-decoration: none;
+    color: var(--color-text-primary);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.3s ease,
+                background 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .project-card::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--project-accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .project-card:hover {
+    transform: translate(-4px, -4px);
+    border-color: var(--project-accent);
+    background: var(--color-bg-tertiary);
+  }
+
+  .project-card:hover::after {
+    transform: scaleX(1);
+  }
+
+  .project-card__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
+
+  .project-card__category {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--project-accent);
+    padding: 0.25rem 0.5rem;
+    border: 1px solid color-mix(in srgb, var(--project-accent) 30%, transparent);
+    background: color-mix(in srgb, var(--project-accent) 8%, transparent);
+  }
+
+  .project-card__arrow {
+    color: var(--color-text-muted);
+    transition: color 0.3s ease, transform 0.3s ease;
+  }
+
+  .project-card:hover .project-card__arrow {
+    color: var(--project-accent);
+    transform: translate(3px, -3px);
+  }
+
+  .project-card__title {
+    font-family: var(--font-accent);
+    font-size: clamp(1.25rem, 2vw, 1.75rem);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+    color: var(--color-text-primary);
+  }
+
+  .project-card__desc {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    line-height: 1.7;
+    color: var(--color-text-secondary);
+    margin-bottom: 1.5rem;
+    flex: 1;
+  }
+
+  .project-card__tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .tech-tag {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.05em;
+    color: var(--project-accent);
+    padding: 0.2rem 0.5rem;
+    border: 1px solid color-mix(in srgb, var(--project-accent) 25%, transparent);
+    background: color-mix(in srgb, var(--project-accent) 8%, transparent);
+  }
+
+  @media (max-width: 768px) {
+    .projects-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .projects-grid > :first-child {
+      grid-column: 1;
+    }
+  }
+</style>
