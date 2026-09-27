@@ -151,17 +151,40 @@ body.no-grid { background-image: none; }
   font-size: clamp(26px, 3.4vw, 44px);
   letter-spacing: -0.03em;
   line-height: 1;
+  /* translate3d keeps the track on its own compositor layer, which iOS Safari
+     otherwise drops for a strip this wide. */
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
   animation: band-scroll 38s linear infinite;
 }
 .band-run { display: flex; padding-left: var(--gutter); }
 .band-sep { color: var(--color-accent); margin: 0 32px; }
 
 @keyframes band-scroll {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-50%, 0, 0); }
 }
+
+/* The track is the same width on a phone as on a desktop, so at one shared
+   duration it crawls on a small screen. Shorten the loop instead. */
+@media (max-width: 700px) {
+  .band-track { animation-duration: 18s; }
+}
+
+/* No auto-motion when the visitor asks for none — but a frozen clipped strip
+   reads as broken, so the band becomes swipeable and starts at the first word. */
 @media (prefers-reduced-motion: reduce) {
-  .band-track { animation: none; }
+  .band {
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .band::-webkit-scrollbar { display: none; }
+  .band-track {
+    animation: none;
+    transform: none;
+    will-change: auto;
+  }
 }
 
 /* — section heads — */
