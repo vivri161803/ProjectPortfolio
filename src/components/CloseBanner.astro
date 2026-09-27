@@ -1,0 +1,17 @@
+---
+import { personal } from "../data/site";
+
+const year = new Date().getFullYear();
+---
+
+<section class="close">
+  <a class="close-link" href={`mailto:${personal.email}`}>Get in touch ↗</a>
+  <div class="close-foot">
+    <span>© {year} {personal.name}</span>
+    <span>
+      <a href={personal.github}>GitHub</a> ·
+      <a href={personal.linkedin}>LinkedIn</a> ·
+      <a href={personal.cvPath} download>CV</a>
+    </span>
+  </div>
+</section>

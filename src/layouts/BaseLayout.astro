@@ -1,15 +1,47 @@
 ---
+import "../styles/modernist.css";
+import "../styles/site.css";
+import Nav from "../components/Nav.astro";
+import { personal } from "../data/site";
+
 interface Props {
   title?: string;
   description?: string;
+  /** Which nav item reads as the current page. */
+  current?: "work" | "about" | null;
+  /** The ruled 100px column grid is off on the poster home. */
+  grid?: boolean;
 }
 
 const {
-  title = "Carlo Bianchi — AI Engineer & Researcher",
-  description = "AI Engineer & Researcher specializing in Knowledge Graphs, LLMs, and efficient AI architectures. Data Science Master's Student at University of Florence."
+  title = `${personal.name} — ${personal.role}`,
+  description = personal.bio,
+  current = null,
+  grid = true,
 } = Astro.props;
 
-const canonicalURL = new URL(Astro.url.pathname, Astro.site || "https://carlobianchi.dev");
+const canonical = new URL(Astro.url.pathname, Astro.site ?? "https://carlobianchi.dev");
+
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: personal.name,
+  jobTitle: personal.role,
+  description: personal.bio,
+  url: canonical.toString(),
+  email: `mailto:${personal.email}`,
+  address: { "@type": "PostalAddress", addressLocality: "Florence", addressCountry: "IT" },
+  sameAs: [personal.github, personal.linkedin],
+  alumniOf: { "@type": "CollegeOrUniversity", name: "Università degli Studi di Firenze" },
+  knowsAbout: [
+    "Artificial Intelligence",
+    "GraphRAG",
+    "Knowledge Graphs",
+    "Large Language Models",
+    "Explainable AI",
+    "Python",
+  ],
+};
 ---
 
 <!doctype html>
@@ -19,59 +51,35 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || "https://carlobia
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" content={Astro.generator} />
 
-    <!-- SEO -->
     <title>{title}</title>
     <meta name="description" content={description} />
-    <link rel="canonical" href={canonicalURL.toString()} />
+    <link rel="canonical" href={canonical.toString()} />
 
-    <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:url" content={canonicalURL.toString()} />
+    <meta property="og:url" content={canonical.toString()} />
     <meta property="og:locale" content="en_US" />
-
-    <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
+    <meta name="theme-color" content="#f3f2f2" />
 
-    <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
 
-    <!-- Fonts: Instrument Serif (Display), JetBrains Mono (Body), Syne (Accent) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@300;400;500;700&family=Syne:wght@400;600;700;800&display=swap"
-      rel="stylesheet"
-    />
 
-    <!-- Structured Data: Person -->
-    <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "Carlo Bianchi",
-      "jobTitle": "AI Engineer & Researcher",
-      "description": description,
-      "url": canonicalURL.toString(),
-      "sameAs": [
-        "https://github.com/carlobianchi",
-        "https://linkedin.com/in/carlobianchi"
-      ],
-      "alumniOf": {
-        "@type": "CollegeOrUniversity",
-        "name": "University of Florence"
-      },
-      "knowsAbout": ["Artificial Intelligence", "Machine Learning", "Knowledge Graphs", "Natural Language Processing", "Python", "PyTorch"]
-    })} />
-
-    <!-- Global Styles -->
-    <style is:global>
-      @import "../styles/global.css";
-    </style>
+    <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
   </head>
-  <body class="noise-overlay">
-    <slot />
+  <body class={grid ? undefined : "no-grid"}>
+    <a class="skip" href="#main">Skip to content</a>
+    <div class="shell">
+      <Nav current={current} />
+      <main id="main">
+        <slot />
+      </main>
+    </div>
   </body>
 </html>

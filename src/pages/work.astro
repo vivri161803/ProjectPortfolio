@@ -1,0 +1,100 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Footer from "../components/Footer.astro";
+import { projects, areas, pad } from "../data/site";
+
+const count = (n: number) => `(${String(n).padStart(2, "0")})`;
+---
+
+<BaseLayout
+  title="Work — Carlo Bianchi"
+  description="Full index of Carlo Bianchi's engineering, research and teaching projects: GraphRAG, knowledge graphs, explainable AI and speech."
+  current="work"
+>
+  <div class="page-head">
+    <h1>Work<sup data-count>{count(projects.length)}</sup></h1>
+    <div class="filters" role="group" aria-label="Filter projects by area">
+      {
+        areas.map((a) => (
+          <button class="filter" type="button" data-filter={a} aria-pressed={a === "All"}>
+            {a}
+          </button>
+        ))
+      }
+    </div>
+  </div>
+
+  <div class="index-head">
+    <span>No.</span><span>Project</span><span>Area</span><span>Stack</span><span>Open</span>
+  </div>
+
+  <div class="rows">
+    {
+      projects.map((p, i) => (
+        <div class="row" data-row data-area={p.area}>
+          <button class="row-main" type="button" aria-expanded="false" aria-controls={`panel-${i}`}>
+            <span class="row-n">{pad(i)}</span>
+            <span class="row-title">{p.title}</span>
+            <span class="row-area">{p.area}</span>
+            <span class="row-stack">{p.stack.join(" · ")}</span>
+            <span class="row-sign" aria-hidden="true">+</span>
+          </button>
+          <div class="row-panel" id={`panel-${i}`} hidden>
+            <p class="row-desc">{p.desc}</p>
+            <div class="row-cta">
+              <a class="btn btn-primary" href={p.url} target="_blank" rel="noopener">
+                {p.url.includes("github.com") ? "View on GitHub" : "Open project"} ↗
+              </a>
+            </div>
+          </div>
+        </div>
+      ))
+    }
+  </div>
+
+  <Footer />
+</BaseLayout>
+
+<script>
+  const rows = Array.from(document.querySelectorAll<HTMLElement>("[data-row]"));
+  const filters = Array.from(document.querySelectorAll<HTMLButtonElement>("[data-filter]"));
+  const counter = document.querySelector<HTMLElement>("[data-count]");
+
+  const setOpen = (row: HTMLElement, open: boolean) => {
+    const btn = row.querySelector<HTMLButtonElement>(".row-main")!;
+    const panel = row.querySelector<HTMLElement>(".row-panel")!;
+    const sign = row.querySelector<HTMLElement>(".row-sign")!;
+    btn.setAttribute("aria-expanded", String(open));
+    panel.hidden = !open;
+    sign.textContent = open ? "−" : "+";
+  };
+
+  // One row open at a time, as in the mockup.
+  rows.forEach((row) => {
+    row.querySelector<HTMLButtonElement>(".row-main")!.addEventListener("click", () => {
+      const isOpen = row.querySelector(".row-main")!.getAttribute("aria-expanded") === "true";
+      rows.forEach((r) => setOpen(r, false));
+      setOpen(row, !isOpen);
+    });
+  });
+
+  filters.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const area = btn.dataset.filter!;
+      filters.forEach((f) => f.setAttribute("aria-pressed", String(f === btn)));
+
+      let shown = 0;
+      rows.forEach((row) => {
+        const match = area === "All" || row.dataset.area === area;
+        row.hidden = !match;
+        if (!match) setOpen(row, false);
+        if (match) shown += 1;
+      });
+
+      if (counter) counter.textContent = `(${String(shown).padStart(2, "0")})`;
+    });
+  });
+
+  // Open the first row so the expanded state is discoverable.
+  if (rows[0]) setOpen(rows[0], true);
+</script>

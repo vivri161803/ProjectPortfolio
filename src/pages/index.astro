@@ -1,100 +1,77 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import Hero from "../components/Hero.astro";
-import Projects from "../components/Projects.astro";
-import Experience from "../components/Experience.astro";
-import Contacts from "../components/Contacts.astro";
-import KnowledgeGraph from "../components/react/KnowledgeGraph.jsx";
+import CloseBanner from "../components/CloseBanner.astro";
+import { personal, projects, facts, researchBand, pad } from "../data/site";
 ---
 
-<BaseLayout>
-  <!-- 3D Background — React Island, client:only to avoid SSR -->
-  <KnowledgeGraph client:only="react" />
+<BaseLayout grid={false}>
+  <section class="poster">
+    <div class="kicker">{personal.role} — {personal.location}</div>
+    <h1>
+      {personal.statement.lead}{" "}
+      <span class="accent">{personal.statement.accent}</span>
+    </h1>
+  </section>
 
-  <!-- HTML Content Overlay -->
-  <main>
-    <Hero />
-    <Projects />
-    <Experience />
-    <Contacts />
-  </main>
+  <div class="facts">
+    {
+      facts.map((f) => (
+        <div class="fact">
+          <div class="kicker">{f.label}</div>
+          <div class="fact-value">{f.value}</div>
+        </div>
+      ))
+    }
+    <div class="fact">
+      <div class="kicker">Elsewhere</div>
+      <div class="fact-value fact-links">
+        <a href={personal.github}>GitHub ↗</a>
+        <a href={personal.linkedin}>LinkedIn ↗</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="band" aria-label="Research interests">
+    <div class="band-track">
+      {
+        [0, 1].map(() => (
+          <div class="band-run">
+            {researchBand.map((t) => (
+              <>
+                <span>{t}</span>
+                <span class="band-sep">/</span>
+              </>
+            ))}
+          </div>
+        ))
+      }
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>Selected work</h2>
+    <a class="section-link" href="/work">Full index →</a>
+  </div>
+
+  <div class="work-grid">
+    {
+      projects.map((p, i) => (
+        <a class="cell" href={p.url} target="_blank" rel="noopener">
+          <div class="cell-top">
+            <span class="cell-area">{p.area}</span>
+            <span class="cell-n">{pad(i)}</span>
+          </div>
+          <div class="cell-title">{p.title}</div>
+          <p class="cell-desc">{p.desc}</p>
+          <div class="cell-stack">{p.stack.join(" · ")}</div>
+        </a>
+      ))
+    }
+    <a class="cell cell-all" href={personal.github} target="_blank" rel="noopener">
+      <div class="cell-title">All {personal.repoCount} repositories on GitHub ↗</div>
+    </a>
+    <div class="cell cell-filler"></div>
+  </div>
+
+  <CloseBanner />
 </BaseLayout>
-
-<!-- GSAP ScrollTrigger — Section change dispatcher -->
-<script>
-  import gsap from "gsap";
-  import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-  gsap.registerPlugin(ScrollTrigger);
-
-  // Wait for DOM ready
-  document.addEventListener("DOMContentLoaded", () => {
-    const sections = document.querySelectorAll("[data-section]");
-
-    sections.forEach((section) => {
-      const sectionId = section.getAttribute("data-section");
-
-      ScrollTrigger.create({
-        trigger: section,
-        start: "top center",
-        end: "bottom center",
-        onEnter: () => {
-          window.dispatchEvent(
-            new CustomEvent("section-change", {
-              detail: { sectionId },
-            })
-          );
-        },
-        onEnterBack: () => {
-          window.dispatchEvent(
-            new CustomEvent("section-change", {
-              detail: { sectionId },
-            })
-          );
-        },
-      });
-    });
-
-    // Scroll-triggered reveal animations
-    const reveals = document.querySelectorAll(".animate-reveal, .animate-reveal-left");
-    reveals.forEach((el) => {
-      // Reset initial state
-      el.style.opacity = "0";
-
-      ScrollTrigger.create({
-        trigger: el,
-        start: "top 85%",
-        once: true,
-        onEnter: () => {
-          el.style.opacity = "";
-          el.classList.add("is-visible");
-        },
-      });
-    });
-  });
-</script>
-
-<style is:global>
-  /* Reveal elements start hidden, then animate in when triggered */
-  .animate-reveal,
-  .animate-reveal-left {
-    opacity: 0;
-  }
-
-  .animate-reveal.is-visible {
-    animation: reveal-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
-  }
-
-  .animate-reveal-left.is-visible {
-    animation: reveal-left 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
-  }
-
-  /* Hero section: always visible (above fold) */
-  #hero .animate-reveal {
-    opacity: 1;
-  }
-
-  #hero .animate-reveal.is-visible {
-    animation: reveal-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
-  }
-</style>

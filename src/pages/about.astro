@@ -1,0 +1,61 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Footer from "../components/Footer.astro";
+import { personal, cvSections, skills } from "../data/site";
+---
+
+<BaseLayout
+  title="About — Carlo Bianchi"
+  description="Carlo Bianchi: AI engineer in Florence working on GraphRAG, agentic LLM workflows and document extraction. Experience, education, skills and CV."
+  current="about"
+>
+  <div class="about-head">
+    <h1>About</h1>
+    <div class="about-intro">
+      <p class="about-lead">{personal.bio}</p>
+      <p class="about-body">{personal.bioLong}</p>
+      <div class="about-actions">
+        <a class="btn btn-primary" href={personal.cvPath} download>Download CV ↓</a>
+        <a class="btn btn-secondary" href={personal.github} target="_blank" rel="noopener">
+          GitHub ↗
+        </a>
+      </div>
+    </div>
+  </div>
+
+  {
+    cvSections.map((sec) => (
+      <section class="cv-section">
+        <h2>{sec.title}</h2>
+        <div class="cv-list">
+          {sec.items.map((it) => (
+            <div class="cv-item">
+              <span class="cv-date">{it.date}</span>
+              <div class="cv-role">
+                <strong>{it.role}</strong>
+                <div class="cv-org">{it.org}</div>
+              </div>
+              <p class="cv-desc">{it.desc}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+    ))
+  }
+
+  <section class="cv-section" style="margin-top:56px">
+    <h2>Skills</h2>
+    <div class="skills-grid">
+      {
+        skills.map((g) => (
+          <div class="skill">
+            <strong>{g.name}</strong>
+            <span>{g.list}</span>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <Footer />
+</BaseLayout>

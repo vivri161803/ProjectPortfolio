@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<meta name="design_doc_mode" content="canvas">
+<link rel="stylesheet" href="_ds/modernist-9184837d-0631-4e04-a250-ab2333a17e25/styles.css">
+<script src="_ds/modernist-9184837d-0631-4e04-a250-ab2333a17e25/_ds_bundle.js"></script>
+<style>
+body{margin:0;background:#dcdad8}
+a{color:var(--color-accent)}a:hover{color:var(--color-accent-600)}
+@keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.dv-turn{padding:40px 44px 32px;scroll-margin-top:16px}.dv-thd{display:flex;align-items:baseline;gap:10px;margin:0 0 12px}.dv-tid{font:600 10px ui-monospace,Menlo,monospace;padding:3px 7px;background:#1a1a1a;color:#fff;text-decoration:none}.dv-tname{font:600 13px/1.2 system-ui,sans-serif;color:#1a1a1a}.dv-notes{font:12px/1.55 system-ui,sans-serif;color:rgba(0,0,0,.6);max-width:760px;margin:0 0 24px}.dv-opts{display:flex;flex-wrap:wrap;gap:40px;align-items:flex-start}.dv-opt{flex:none;display:flex;flex-direction:column;gap:9px;scroll-margin-top:16px}.dv-oid{font:600 10.5px ui-monospace,Menlo,monospace;padding:3px 7px;background:rgba(0,0,0,.08);color:#1a1a1a;text-decoration:none}.dv-olabel{display:flex;align-items:baseline;gap:8px;font:400 12px/1.3 system-ui,sans-serif;color:rgba(0,0,0,.6)}.dv-card{background:var(--color-bg);box-shadow:0 1px 3px rgba(0,0,0,.08);overflow:hidden}.dv-opt:target .dv-oid{background:#ec3013;color:#fff}.dv-next{margin:28px 0 0;font:12px/1.5 system-ui,sans-serif;color:rgba(0,0,0,.55)}
+</style>
+</helmet>
+<section class="dv-turn" id="t1">
+<div class="dv-thd"><a class="dv-tid" href="#t1">1</a><span class="dv-tname">Carlo Bianchi — portfolio, Modernist system, typographic only</span></div>
+<p class="dv-notes">Built for recruiters: name, role and work are readable in the first screen, with no 3D or effects that exist for their own sake. Structure comes from the visible 12-column grid, 2px rules and Archivo at display sizes; red is used only for indices, emphasis and one closing field. Project content comes from GitHub and your old site. Two homepage directions (<a class="dv-oid" href="#1a">1a</a> index list, <a class="dv-oid" href="#1b">1b</a> poster grid), then the Work index (<a class="dv-oid" href="#1c">1c</a>) and About/CV (<a class="dv-oid" href="#1d">1d</a>). Hover the rows and cells; <a class="dv-oid" href="#1c">1c</a> filters and expands.</p>
+<div class="dv-opts">
+
+<div class="dv-opt" id="1a">
+<div class="dv-olabel"><a class="dv-oid" href="#1a">1a</a>Home · Index — name as the hero, projects as a ruled list with a cursor-following stack card</div>
+<div class="dv-card" style="width:1280px">
+<div style="position:relative;width:1280px;background-color:var(--color-bg);color:var(--color-text);background-image:linear-gradient(to right, color-mix(in srgb, var(--color-text) 6%, transparent) 1px, transparent 1px);background-size:100px 100%;background-position:40px 0">
+<nav class="nav" style="padding:20px 40px;border-bottom:2px solid var(--color-text)">
+<span class="nav-brand" style="font-size:16px">Carlo Bianchi</span>
+<a href="#1c" aria-current="page">Work</a><a href="#1d">About</a><a href="#1d">CV ↓</a>
+<span style="font-size:13px;color:var(--color-neutral-700);font-variant-numeric:tabular-nums;min-width:128px;text-align:right">Florence {{ time }}</span>
+</nav>
+<div style="display:grid;grid-template-columns:repeat(12,minmax(0,1fr));padding:72px 40px 56px;align-items:end">
+<h1 style="grid-column:1 / span 8;font-size:184px;line-height:.86;letter-spacing:-0.055em;margin:0">Carlo<br>Bianchi<span style="color:var(--color-accent)">.</span></h1>
+<div style="grid-column:9 / span 4;display:flex;flex-direction:column;gap:16px;padding-bottom:12px">
+<div style="font-weight:800;font-size:22px;letter-spacing:-0.01em">AI Engineer</div>
+<p style="margin:0;font-size:15px;line-height:1.55;color:var(--color-neutral-800);text-wrap:pretty">AI engineer with hands-on industry experience building GraphRAG systems, agentic LLM workflows, and LLM-based document extraction pipelines. MSc in Data Science &amp; AI (University of Florence, 2026).</p>
+</div>
+</div>
+<div style="display:grid;grid-template-columns:repeat(12,minmax(0,1fr));padding:14px 40px;border-top:2px solid var(--color-text);border-bottom:1px solid var(--color-divider);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--color-neutral-700)">
+<span style="grid-column:1 / span 1">No.</span><span style="grid-column:2 / span 6">Selected work</span><span style="grid-column:8 / span 3">Area</span><span style="grid-column:11 / span 2;text-align:right">{{ countLabel }}</span>
+</div>
+<div style="position:relative;padding:0 40px" onMouseMove="{{ onListMove }}" onMouseLeave="{{ onListLeave }}">
+<sc-for list="{{ rows1a }}" as="p" hint-placeholder-count="7">
+<a href="{{ p.url }}" target="_blank" onMouseEnter="{{ p.onEnter }}" style="display:grid;grid-template-columns:repeat(12,minmax(0,1fr));padding:22px 0;border-bottom:1px solid var(--color-divider);color:inherit;text-decoration:none;align-items:baseline;cursor:pointer">
+<span style="{{ p.numStyle }}">{{ p.n }}</span>
+<span style="{{ p.titleStyle }}">{{ p.title }}</span>
+<span style="grid-column:8 / span 3;font-size:14px;color:var(--color-neutral-700)">{{ p.area }}</span>
+<span style="{{ p.arrowStyle }}"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></span>
+<span style="{{ p.descStyle }}">{{ p.desc }}</span>
+</a>
+</sc-for>
+<div style="{{ cursorStyle }}">
+<div style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-accent-400);margin-bottom:10px">Stack</div>
+<sc-for list="{{ cursorStack }}" as="s" hint-placeholder-count="3"><div style="font-size:15px;font-weight:600;line-height:1.5">{{ s }}</div></sc-for>
+</div>
+</div>
+<div style="display:grid;grid-template-columns:repeat(12,minmax(0,1fr));padding:64px 40px 28px;align-items:end">
+<div style="grid-column:1 / span 6;font-weight:800;font-size:56px;letter-spacing:-0.035em;line-height:1">Get in touch</div>
+<div style="grid-column:8 / span 5;display:flex;gap:24px;justify-content:flex-start;font-size:15px;font-weight:600">
+<a href="https://github.com/vivri161803" style="color:var(--color-text)" style-hover="color:var(--color-accent)">GitHub ↗</a><a href="https://www.linkedin.com/in/carlo-bianchi-b6016b390" style="color:var(--color-text)" style-hover="color:var(--color-accent)">LinkedIn ↗</a><a href="#1d" style="color:var(--color-text)" style-hover="color:var(--color-accent)">Download CV ↓</a>
+</div>
+</div>
+<div style="display:flex;justify-content:space-between;padding:16px 40px 24px;border-top:2px solid var(--color-text);font-size:12px;color:var(--color-neutral-700)"><span>© 2026 Carlo Bianchi</span><span>Florence, Italy</span></div>
+</div>
+</div>
+</div>
+
+<div class="dv-opt" id="1b">
+<div class="dv-olabel"><a class="dv-oid" href="#1b">1b</a>Home · Poster — statement headline, fact strip, scrolling research band, modular project grid, red close</div>
+<div class="dv-card" style="width:1280px">
+<div style="position:relative;width:1280px;background-color:var(--color-bg);color:var(--color-text)">
+<nav class="nav" style="padding:20px 40px;border-bottom:2px solid var(--color-text)">
+<span class="nav-brand" style="font-size:16px">Carlo Bianchi</span>
+<a href="#1c">Work</a><a href="#1d">About</a><a href="#1d">CV ↓</a>
+</nav>
+<div style="padding:88px 40px 72px">
+<div style="font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--color-neutral-700);margin-bottom:28px">AI Engineer — Florence, Italy</div>
+<h1 style="font-size:104px;line-height:.95;letter-spacing:-0.045em;margin:0;max-width:1120px;text-wrap:balance">I build retrieval systems that can <span style="color:var(--color-accent)">explain themselves.</span></h1>
+</div>
+<div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:2px solid var(--color-text)">
+<div style="padding:18px 20px 26px 40px;border-right:1px solid var(--color-divider)"><div style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--color-neutral-700);margin-bottom:8px">Now</div><div style="font-size:16px;font-weight:600;line-height:1.35">AI &amp; Data Science Intern, Dometrìa</div></div>
+<div style="padding:18px 20px 26px;border-right:1px solid var(--color-divider)"><div style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--color-neutral-700);margin-bottom:8px">Education</div><div style="font-size:16px;font-weight:600;line-height:1.35">MSc Data Science &amp; AI, University of Florence, 2026</div></div>
+<div style="padding:18px 20px 26px;border-right:1px solid var(--color-divider)"><div style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--color-neutral-700);margin-bottom:8px">Focus</div><div style="font-size:16px;font-weight:600;line-height:1.35">GraphRAG, agentic LLM workflows, document extraction</div></div>
+<div style="padding:18px 40px 26px 20px"><div style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--color-neutral-700);margin-bottom:8px">Elsewhere</div><div style="display:flex;flex-direction:column;font-size:16px;font-weight:600;line-height:1.35"><a href="https://github.com/vivri161803" style="color:var(--color-text)" style-hover="color:var(--color-accent)">GitHub ↗</a><a href="https://www.linkedin.com/in/carlo-bianchi-b6016b390" style="color:var(--color-text)" style-hover="color:var(--color-accent)">LinkedIn ↗</a></div></div>
+</div>
+<div style="border-top:2px solid var(--color-text);border-bottom:2px solid var(--color-text);overflow:hidden;padding:18px 0">{{ marquee }}</div>
+<div style="display:flex;justify-content:space-between;align-items:baseline;padding:56px 40px 20px">
+<h2 style="font-size:56px;letter-spacing:-0.035em;margin:0">Selected work</h2>
+<a href="#1c" style="font-size:15px;font-weight:600;color:var(--color-text)" style-hover="color:var(--color-accent)">Full index →</a>
+</div>
+<div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:2px solid var(--color-text);margin:0 40px">
+<sc-for list="{{ cells1b }}" as="p" hint-placeholder-count="6">
+<a href="{{ p.url }}" target="_blank" style="display:flex;flex-direction:column;gap:14px;min-height:300px;padding:22px 24px 26px;border-bottom:1px solid var(--color-divider);border-right:1px solid var(--color-divider);color:var(--color-text);text-decoration:none;transition:background-color .35s ease, color .35s ease" style-hover="background-color:var(--color-text);color:var(--color-bg)">
+<div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--color-accent)">{{ p.area }}</span><span style="font-size:13px;font-variant-numeric:tabular-nums">{{ p.n }}</span></div>
+<div style="font-weight:800;font-size:30px;line-height:1.05;letter-spacing:-0.025em;margin-top:auto">{{ p.title }}</div>
+<p style="margin:0;font-size:14px;line-height:1.5;opacity:.78;text-wrap:pretty">{{ p.desc }}</p>
+<div style="font-size:12px;opacity:.6">{{ p.stackLine }}</div>
+</a>
+</sc-for>
+<a href="https://github.com/vivri161803" target="_blank" style="display:flex;flex-direction:column;justify-content:flex-end;min-height:300px;padding:22px 24px 26px;border-bottom:1px solid var(--color-divider);border-right:1px solid var(--color-divider);color:var(--color-text);text-decoration:none;transition:color .3s" style-hover="color:var(--color-accent)"><div style="font-weight:800;font-size:30px;line-height:1.05;letter-spacing:-0.025em">All 24 repositories on GitHub ↗</div></a>
+<div style="border-bottom:1px solid var(--color-divider);border-right:1px solid var(--color-divider)"></div>
+</div>
+<div style="margin-top:72px;background:var(--color-accent);color:var(--color-bg);padding:48px 40px 28px">
+<a href="https://www.linkedin.com/in/carlo-bianchi-b6016b390" style="display:block;font-weight:800;font-size:150px;line-height:.9;letter-spacing:-0.05em;color:var(--color-bg);text-decoration:none">Get in touch ↗</a>
+<div style="display:flex;justify-content:space-between;margin-top:48px;padding-top:14px;border-top:2px solid var(--color-bg);font-size:13px"><span>© 2026 Carlo Bianchi</span><span>GitHub · LinkedIn · CV</span></div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="dv-opt" id="1c">
+<div class="dv-olabel"><a class="dv-oid" href="#1c">1c</a>Work index — filter by area, click a row to expand</div>
+<div class="dv-card" style="width:1280px">
+<div style="position:relative;width:1280px;min-height:900px;background-color:var(--color-bg);color:var(--color-text);background-image:linear-gradient(to right, color-mix(in srgb, var(--color-text) 6%, transparent) 1px, transparent 1px);background-size:100px 100%;background-position:40px 0">
+<nav class="nav" style="padding:20px 40px;border-bottom:2px solid var(--color-text)">
+<span class="nav-brand" style="font-size:16px">Carlo Bianchi</span>
+<a href="#1c" aria-current="page">Work</a><a href="#1d">About</a><a href="#1d">CV ↓</a>
+</nav>
+<div style="display:flex;justify-content:space-between;align-items:flex-end;padding:72px 40px 36px">
+<h1 style="font-size:160px;line-height:.85;letter-spacing:-0.055em;margin:0">Work<sup style="font-size:28px;letter-spacing:0;vertical-align:top;margin-left:10px;color:var(--color-accent)">{{ filteredCount }}</sup></h1>
+<div style="display:flex;border:2px solid var(--color-text)">
+<sc-for list="{{ filters }}" as="f" hint-placeholder-count="4"><button onClick="{{ f.onClick }}" style="{{ f.style }}">{{ f.label }}</button></sc-for>
+</div>
+</div>
+<div style="display:grid;grid-template-columns:repeat(12,minmax(0,1fr));padding:12px 40px;border-top:2px solid var(--color-text);border-bottom:1px solid var(--color-divider);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--color-neutral-700)">
+<span style="grid-column:1 / span 1">No.</span><span style="grid-column:2 / span 4">Project</span><span style="grid-column:6 / span 2">Area</span><span style="grid-column:8 / span 4">Stack</span><span style="grid-column:12 / span 1;text-align:right">Open</span>
+</div>
+<div style="padding:0 40px 80px">
+<sc-for list="{{ rows1c }}" as="p" hint-placeholder-count="7">
+<div onClick="{{ p.onToggle }}" style="display:grid;grid-template-columns:repeat(12,minmax(0,1fr));padding:20px 0;border-bottom:1px solid var(--color-divider);cursor:pointer;align-items:baseline;transition:background-color .25s" style-hover="background-color:color-mix(in srgb, var(--color-text) 5%, transparent)">
+<span style="grid-column:1 / span 1;font-size:14px;font-variant-numeric:tabular-nums;color:var(--color-accent)">{{ p.n }}</span>
+<span style="grid-column:2 / span 4;font-weight:800;font-size:28px;letter-spacing:-0.02em;line-height:1.1">{{ p.title }}</span>
+<span style="grid-column:6 / span 2;font-size:14px">{{ p.area }}</span>
+<span style="grid-column:8 / span 4;font-size:14px;color:var(--color-neutral-700)">{{ p.stackLine }}</span>
+<span style="grid-column:12 / span 1;text-align:right;font-size:26px;line-height:1;font-weight:400">{{ p.sign }}</span>
+<sc-if value="{{ p.isOpen }}" hint-placeholder-val="{{ false }}">
+<div style="grid-column:2 / span 10;display:grid;grid-template-columns:repeat(10,minmax(0,1fr));padding-top:18px">
+<p style="grid-column:1 / span 6;margin:0;font-size:18px;line-height:1.5;text-wrap:pretty">{{ p.desc }}</p>
+<div style="grid-column:7 / span 4;display:flex;gap:20px;justify-content:flex-start;align-self:end;padding-left:100px"><a href="{{ p.url }}" target="_blank" class="btn btn-primary" style="justify-content:flex-start;min-width:180px">{{ p.linkLabel }} ↗</a></div>
+</div>
+</sc-if>
+</div>
+</sc-for>
+</div>
+</div>
+</div>
+</div>
+
+<div class="dv-opt" id="1d">
+<div class="dv-olabel"><a class="dv-oid" href="#1d">1d</a>About / CV — bio, experience, education, skills</div>
+<div class="dv-card" style="width:1280px">
+<div style="position:relative;width:1280px;background-color:var(--color-bg);color:var(--color-text);background-image:linear-gradient(to right, color-mix(in srgb, var(--color-text) 6%, transparent) 1px, transparent 1px);background-size:100px 100%;background-position:40px 0">
+<nav class="nav" style="padding:20px 40px;border-bottom:2px solid var(--color-text)">
+<span class="nav-brand" style="font-size:16px">Carlo Bianchi</span>
+<a href="#1c">Work</a><a href="#1d" aria-current="page">About</a><a href="#1d">CV ↓</a>
+</nav>
+<div style="display:grid;grid-template-columns:repeat(12,minmax(0,1fr));padding:72px 40px 80px">
+<h1 style="grid-column:1 / span 4;font-size:120px;line-height:.85;letter-spacing:-0.055em;margin:0">About</h1>
+<div style="grid-column:6 / span 7;display:flex;flex-direction:column;gap:28px">
+<p style="margin:0;font-size:30px;line-height:1.3;letter-spacing:-0.015em;font-weight:600;text-wrap:pretty">AI engineer with hands-on industry experience building GraphRAG systems, agentic LLM workflows, and LLM-based document extraction pipelines.</p>
+<p style="margin:0;font-size:17px;line-height:1.55;color:var(--color-neutral-800);max-width:600px;text-wrap:pretty">MSc in Data Science &amp; AI (University of Florence, 2026). Research interests: explainable AI, automated fact-checking, and robustness of retrieval-augmented systems.</p>
+<div style="display:flex;gap:12px"><a href="#1d" class="btn btn-primary" style="justify-content:flex-start;min-width:200px;padding:12px 16px">Download CV ↓</a><a href="https://github.com/vivri161803" class="btn btn-secondary" style="padding:12px 16px;border:2px solid var(--color-text)">GitHub ↗</a></div>
+</div>
+</div>
+<sc-for list="{{ cvSections }}" as="sec" hint-placeholder-count="2">
+<div style="display:grid;grid-template-columns:repeat(12,minmax(0,1fr));padding:0 40px;border-top:2px solid var(--color-text)">
+<h2 style="grid-column:1 / span 3;font-size:14px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;padding-top:16px;margin:0">{{ sec.title }}</h2>
+<div style="grid-column:4 / span 9">
+<sc-for list="{{ sec.items }}" as="it" hint-placeholder-count="3">
+<div style="display:grid;grid-template-columns:repeat(9,minmax(0,1fr));padding:16px 0 22px;border-bottom:1px solid var(--color-divider);transition:padding-left .35s cubic-bezier(.2,.7,.2,1)" style-hover="padding-left:12px">
+<span style="grid-column:1 / span 2;font-size:14px;color:var(--color-neutral-700);font-variant-numeric:tabular-nums">{{ it.date }}</span>
+<div style="grid-column:3 / span 3;padding-right:24px"><div style="font-weight:800;font-size:19px;line-height:1.2;letter-spacing:-0.01em">{{ it.role }}</div><div style="font-size:14px;color:var(--color-accent-700);margin-top:4px">{{ it.org }}</div></div>
+<p style="grid-column:6 / span 4;margin:0;font-size:14px;line-height:1.55;color:var(--color-neutral-800);text-wrap:pretty">{{ it.desc }}</p>
+</div>
+</sc-for>
+</div>
+</div>
+</sc-for>
+<div style="display:grid;grid-template-columns:repeat(12,minmax(0,1fr));padding:0 40px;margin-top:56px;border-top:2px solid var(--color-text)">
+<h2 style="grid-column:1 / span 3;font-size:14px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;padding-top:16px;margin:0">Skills</h2>
+<div style="grid-column:4 / span 9;display:grid;grid-template-columns:repeat(3,minmax(0,1fr))">
+<sc-for list="{{ skills }}" as="g" hint-placeholder-count="6">
+<div style="padding:16px 20px 24px 0;border-bottom:1px solid var(--color-divider)"><div style="font-weight:800;font-size:17px;margin-bottom:8px">{{ g.name }}</div><div style="font-size:14px;line-height:1.6;color:var(--color-neutral-800)">{{ g.list }}</div></div>
+</sc-for>
+</div>
+</div>
+<div style="display:flex;justify-content:space-between;margin-top:80px;padding:16px 40px 24px;border-top:2px solid var(--color-text);font-size:12px;color:var(--color-neutral-700)"><span>© 2026 Carlo Bianchi</span><span>Florence, Italy</span></div>
+</div>
+</div>
+</div>
+
+</div>
+<p class="dv-next">Try next: "combine the hero of <a class="dv-oid" href="#1a">1a</a> with the red close from <a class="dv-oid" href="#1b">1b</a>" · "add a project case-study page for ColdRAG" · "show mobile versions"</p>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const PROJECTS = [
+  { title: 'ColdRAG', area: 'Engineering', url: 'https://github.com/vivri161803/ColdRAG', desc: 'GraphRAG framework for knowledge-graph extraction and semantic matching under cold-start conditions, built for Dometrìa.', stack: ['Python', 'PyTorch', 'Neo4j', 'LangChain'] },
+  { title: 'Medical Whisper', area: 'Engineering', url: 'https://github.com/vivri161803/Medical_Whisper', desc: 'Fine-tuning pipeline for Whisper Large-v3 specialised in medical terminology transcription.', stack: ['PyTorch', 'Hugging Face', 'PEFT', 'torchaudio'] },
+  { title: 'Computational Ontology', area: 'Research', url: 'https://github.com/vivri161803/OntologiaComputazionale', desc: 'LLM pipeline that turns literary texts into knowledge graphs; R-GCN and TransE embeddings drive a book recommender.', stack: ['LLMs', 'R-GCN', 'TransE', 'Optuna', 'Flask'] },
+  { title: 'GraphLIME-RDF', area: 'Research', url: 'https://github.com/vivri161803/graphlime-rdf', desc: 'Local explanations for graph neural network predictions on RDF knowledge graphs.', stack: ['Python', 'GNNs', 'XAI'] },
+  { title: 'Mouse Cortex Network', area: 'Research', url: 'https://mouse-cortex-network-analysis.vercel.app', desc: 'Interactive analysis of the mouse visual cortex network: 194 neurons and 214 directed synaptic connections.', stack: ['R', 'ERGM', 'igraph', 'ggplot'] },
+  { title: 'Python for Data Analysis', area: 'Teaching', url: 'https://vivri161803.github.io/PythonForDataAnanlysis/', desc: 'Open, interactive textbook bridging core Python and practical data science workflows.', stack: ['Python', 'pandas', 'NumPy', 'Altair'] },
+  { title: 'Hands-On ML, in Italian', area: 'Teaching', url: 'https://github.com/vivri161803/HandsOnMachineLearning', desc: 'Italian implementation of Géron’s Hands-On Machine Learning, chapter by chapter.', stack: ['Jupyter', 'scikit-learn', 'Keras'] }
+];
+const EASE = 'cubic-bezier(.2,.7,.2,1)';
+const pad = i => String(i + 1).padStart(2, '0');
+
+class Component extends DCLogic {
+  state = { h: -1, mx: 0, my: 0, filter: 'All', open: 0, time: '' };
+  componentDidMount() {
+    const tick = () => this.setState({ time: new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Rome' }).format(new Date()) });
+    tick(); this._t = setInterval(tick, 20000);
+  }
+  componentWillUnmount() { clearInterval(this._t); }
+  renderVals() {
+    const { h, mx, my, filter, open } = this.state;
+    const rows1a = PROJECTS.map((p, i) => {
+      const on = h === i;
+      return {
+        ...p, n: pad(i),
+        onEnter: () => this.setState({ h: i }),
+        numStyle: { gridColumn: '1 / span 1', fontSize: 14, fontVariantNumeric: 'tabular-nums', color: on ? 'var(--color-accent)' : 'var(--color-neutral-600)', transition: 'color .3s' },
+        titleStyle: { gridColumn: '2 / span 6', fontWeight: 800, fontSize: 52, lineHeight: 1, letterSpacing: '-0.035em', transform: on ? 'translateX(24px)' : 'none', color: on ? 'var(--color-accent)' : 'inherit', transition: `transform .55s ${EASE}, color .3s` },
+        arrowStyle: { gridColumn: '11 / span 2', display: 'flex', justifyContent: 'flex-end', color: 'var(--color-accent)', opacity: on ? 1 : 0, transform: on ? 'translate(0,0)' : 'translate(-10px,10px)', transition: `opacity .3s, transform .45s ${EASE}` },
+        descStyle: { gridColumn: '2 / span 6', paddingLeft: 24, fontSize: 15, lineHeight: 1.5, color: 'var(--color-neutral-800)', maxHeight: on ? 80 : 0, opacity: on ? 1 : 0, marginTop: on ? 12 : 0, overflow: 'hidden', transition: `max-height .55s ${EASE}, opacity .4s, margin-top .55s ${EASE}` }
+      };
+    });
+    const cursorStyle = { position: 'absolute', left: mx + 28, top: my - 24, width: 200, padding: '16px 18px', background: 'var(--color-text)', color: 'var(--color-bg)', pointerEvents: 'none', zIndex: 5, opacity: h >= 0 ? 1 : 0, transform: h >= 0 ? 'scale(1)' : 'scale(.92)', transformOrigin: 'top left', transition: `opacity .25s, transform .35s ${EASE}, left .18s ${EASE}, top .18s ${EASE}` };
+    const items = [...PROJECTS.map(p => p), ...[]];
+    const marqueeText = ['Explainable AI', 'Automated fact-checking', 'Robustness of retrieval-augmented systems', 'Knowledge graphs', 'GraphRAG'];
+    const one = marqueeText.flatMap((t, i) => [
+      React.createElement('span', { key: 't' + i }, t),
+      React.createElement('span', { key: 's' + i, style: { color: 'var(--color-accent)', margin: '0 32px' } }, '/')
+    ]);
+    const marquee = React.createElement('div', { style: { display: 'flex', width: 'max-content', whiteSpace: 'nowrap', fontFamily: 'var(--font-heading)', fontWeight: 800, fontSize: 44, letterSpacing: '-0.03em', lineHeight: 1, animation: 'mq 38s linear infinite' } },
+      React.createElement('div', { style: { display: 'flex', paddingLeft: 40 } }, one),
+      React.createElement('div', { style: { display: 'flex', paddingLeft: 40 } }, one));
+    const cells1b = PROJECTS.map((p, i) => ({ ...p, n: pad(i), stackLine: p.stack.join(' · ') }));
+    const filtered = PROJECTS.map((p, i) => ({ p, i })).filter(({ p }) => filter === 'All' || p.area === filter);
+    const rows1c = filtered.map(({ p, i }) => ({
+      ...p, n: pad(i), stackLine: p.stack.join(' · '), isOpen: open === i, sign: open === i ? '−' : '+',
+      linkLabel: p.url.includes('github.com') ? 'View on GitHub' : 'Open project',
+      onToggle: (e) => { if (e.target.closest('a')) return; this.setState({ open: open === i ? -1 : i }); }
+    }));
+    const filters = ['All', 'Research', 'Engineering', 'Teaching'].map(label => {
+      const on = filter === label;
+      return { label, onClick: () => this.setState({ filter: label }), style: { font: 'inherit', fontSize: 14, fontWeight: 600, padding: '10px 18px', border: 0, borderLeft: label === 'All' ? 0 : '2px solid var(--color-text)', cursor: 'pointer', background: on ? 'var(--color-text)' : 'transparent', color: on ? 'var(--color-bg)' : 'var(--color-text)', transition: 'background-color .25s, color .25s' } };
+    });
+    const cvSections = [
+      { title: 'Experience', items: [
+        { date: 'Present', role: 'AI & Data Science Intern', org: 'Dometrìa', desc: 'GraphRAG matching system built on ColdRAG and DialKG. Rebuilt the internal conversational bot with event-driven LlamaIndex workflows, Pydantic validation and FAISS similarity search.' },
+        { date: 'Jan 2025 — Present', role: 'Freelance Data Annotator', org: 'Outlier AI', desc: 'Quality and accuracy of annotations used to train AI models.' },
+        { date: 'Present', role: 'Academic Tutor, Python', org: 'Università degli Studi di Firenze', desc: 'Mentoring Management Engineering students through practical Python exercises and problem-solving.' },
+        { date: 'Nov — Dec 2024', role: 'Python Teacher', org: 'Riverloop', desc: 'Taught Python for data analysis, machine learning and deep learning; maintained the course repository.' }
+      ] },
+      { title: 'Education', items: [
+        { date: '2024 — 2026', role: 'MSc Data Science & AI', org: 'Università degli Studi di Firenze', desc: 'Knowledge graph construction, GraphRAG architectures and explainable AI.' },
+        { date: '2021 — 2024', role: 'BSc Management Engineering', org: 'Università degli Studi di Firenze', desc: 'Final grade 100/110. Operations research and quantitative methods.' }
+      ] }
+    ];
+    const skills = [
+      { name: 'Programming', list: 'Python, Java, SQL, LaTeX, Bash' },
+      { name: 'Deep learning', list: 'PyTorch, Keras, Hugging Face, LangChain, LangGraph, LlamaIndex' },
+      { name: 'Data & ML', list: 'pandas, NumPy, scikit-learn, SciPy, matplotlib, seaborn' },
+      { name: 'NLP & knowledge', list: 'LLMs, RAG, GraphRAG, knowledge graphs, Transformers' },
+      { name: 'Speech & vision', list: 'ASR, Whisper, torchaudio, OCR, VLMs' },
+      { name: 'Tools', list: 'Git, Docker, Linux, Jupyter, Neovim' }
+    ];
+    return {
+      time: this.state.time, countLabel: `(${pad(PROJECTS.length - 1)})`.replace(/\(\d+\)/, `(${String(PROJECTS.length).padStart(2, '0')})`),
+      rows1a, cursorStyle, cursorStack: h >= 0 ? PROJECTS[h].stack : [],
+      onListMove: (e) => {
+        const el = e.currentTarget, r = el.getBoundingClientRect(), s = r.width / el.offsetWidth || 1;
+        this.setState({ mx: (e.clientX - r.left) / s, my: (e.clientY - r.top) / s });
+      },
+      onListLeave: () => this.setState({ h: -1 }),
+      marquee, cells1b, rows1c, filters, filteredCount: `(${String(filtered.length).padStart(2, '0')})`,
+      cvSections, skills
+    };
+  }
+}
+</script>
+</body>
+</html>

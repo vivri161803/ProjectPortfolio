@@ -1,43 +1,50 @@
-# Astro Starter Kit: Minimal
+# Carlo Bianchi — portfolio
+
+Personal portfolio: AI engineering, research and teaching work. Built as a static
+Astro site on the **Modernist** design system — flat, architectural, set entirely in
+Archivo, near-mono red on a light ground, visible modular grid, zero corner radius,
+2px rules.
+
+Rebuilt from the design mockups in `Portfolio site UI mockups/`.
+
+## Pages
+
+| Route | Mockup | What it is |
+| --- | --- | --- |
+| `/` | 1b | Poster home: statement headline, four-up fact strip, scrolling research band, modular project grid, red closing field |
+| `/work` | 1c | Full project index, filterable by area, rows expand in place |
+| `/about` | 1d | Bio, experience, education and skills, with CV download |
+| `/404` | — | Not found |
+
+## Structure
+
+```
+src/
+  data/site.ts            All copy: projects, facts, CV sections, skills
+  layouts/BaseLayout.astro Head, SEO, JSON-LD, nav + main shell
+  components/             Nav, CloseBanner, Footer
+  pages/                  index, work, about, 404
+  styles/
+    modernist.css         The design system — tokens and component classes
+    site.css              Page structure built on those tokens
+public/                   CV, favicons, robots.txt
+```
+
+Content is edited in one place: `src/data/site.ts`. Colors, type, spacing and
+elevation come from `modernist.css` variables — nothing hard-codes a hex or a font.
+
+## Develop
 
 ```sh
-npm create astro@latest -- --template minimal
+npm install
+npm run dev       # http://localhost:4321
+npm run build     # static output in dist/
+npm run preview
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Requires Node 22.12+.
 
-## 🚀 Project Structure
+## Deploy
 
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
-
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
-
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Static build on Vercel. `npm run build` outputs `dist/`; no server runtime, no
+environment variables.

@@ -1,0 +1,10 @@
+---
+import { personal } from "../data/site";
+
+const year = new Date().getFullYear();
+---
+
+<footer class="foot">
+  <span>© {year} {personal.name}</span>
+  <span>{personal.location}</span>
+</footer>

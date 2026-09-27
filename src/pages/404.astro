@@ -1,0 +1,18 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Footer from "../components/Footer.astro";
+---
+
+<BaseLayout title="Not found — Carlo Bianchi" description="This page does not exist.">
+  <div class="page-head">
+    <h1>404<sup>(00)</sup></h1>
+  </div>
+  <div class="index-head"><span>Error</span><span>Page not found</span><span></span><span></span><span></span></div>
+  <div class="rows" style="padding-block:40px 80px">
+    <p style="font-size:18px;max-width:52ch;margin:0 0 24px">
+      That address does not exist. The work index has everything.
+    </p>
+    <a class="btn btn-primary" href="/" style="justify-content:flex-start;min-width:180px">Back home →</a>
+  </div>
+  <Footer />
+</BaseLayout>

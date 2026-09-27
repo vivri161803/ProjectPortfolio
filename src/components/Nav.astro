@@ -1,0 +1,32 @@
+---
+import { personal } from "../data/site";
+
+interface Props {
+  current?: "work" | "about" | null;
+}
+
+const { current = null } = Astro.props;
+---
+
+<nav class="nav">
+  <a class="nav-brand" href="/" style="color:inherit;text-decoration:none">{personal.name}</a>
+  <a href="/work" aria-current={current === "work" ? "page" : undefined}>Work</a>
+  <a href="/about" aria-current={current === "about" ? "page" : undefined}>About</a>
+  <a href={personal.cvPath} download>CV ↓</a>
+  <span class="nav-clock" data-clock aria-hidden="true">Florence —:—</span>
+</nav>
+
+<script>
+  // Local time in Florence, ticking in the header.
+  const el = document.querySelector<HTMLElement>("[data-clock]");
+  if (el) {
+    const fmt = new Intl.DateTimeFormat("en-GB", {
+      hour: "2-digit",
+      minute: "2-digit",
+      timeZone: "Europe/Rome",
+    });
+    const tick = () => (el.textContent = `Florence ${fmt.format(new Date())}`);
+    tick();
+    setInterval(tick, 20000);
+  }
+</script>
