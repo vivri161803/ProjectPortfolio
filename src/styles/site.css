@@ -34,8 +34,7 @@ body {
 body.no-grid { background-image: none; }
 
 .shell {
-  max-width: 1280px;
-  margin: 0 auto;
+  width: 100%;
 }
 
 .pad { padding-inline: var(--gutter); }
@@ -90,11 +89,11 @@ body.no-grid { background-image: none; }
   padding: clamp(48px, 7vw, 88px) var(--gutter) clamp(40px, 5.6vw, 72px);
 }
 .poster h1 {
-  font-size: clamp(42px, 8.1vw, 104px);
+  font-size: clamp(42px, 8.1vw, 128px);
   line-height: .95;
   letter-spacing: -0.045em;
   margin: 28px 0 0;
-  max-width: 1120px;
+  max-width: 24ch;
   text-wrap: balance;
 }
 .poster h1 .accent { color: var(--color-accent); }
@@ -234,7 +233,7 @@ a.cell:hover .cell-area { color: var(--color-accent-400); }
   letter-spacing: -0.025em;
   margin-top: auto;
 }
-.cell-desc { margin: 0; font-size: 14px; line-height: 1.5; opacity: .78; text-wrap: pretty; }
+.cell-desc { margin: 0; font-size: 14px; line-height: 1.5; opacity: .78; text-wrap: pretty; max-width: 62ch; }
 .cell-stack { font-size: 12px; opacity: .6; }
 .cell-all { justify-content: flex-end; transition: color .3s; }
 a.cell-all:hover { background: transparent; color: var(--color-accent); }
